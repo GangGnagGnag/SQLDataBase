@@ -40,6 +40,12 @@ rename column hp to tel;    -- 컬럼명 변경
 commit;
 
 alter table emp_ddl1
-modify empno  
+modify empno number(10);
 
+alter table emp_ddl1
+drop column tel;
 
+truncate table emp_ddl1; -- 전체 테이블 값 삭제
+
+drop table emp_ddl1;    -- 테이블 삭제
+drop table emp_ddl2;
