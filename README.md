@@ -5,4 +5,4 @@ SQL DataBase 학습
 파일 실행은 DBeaver에서
 
 OUTER공부 할때 참조
-(!left,right,outer join)[https://jetalog.net/28]
+[https://jetalog.net/28]
