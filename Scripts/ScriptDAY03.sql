@@ -1,3 +1,44 @@
+
+-- NULL 처리
+SELECT * FROM emp e;
+SELECT comm*1.1 FROM emp e;
+SELECT nvl(comm, 0) FROM emp e;			-- NVL(해당열, 대체값)
+SELECT nvl(comm, 0)*1.2 FROM emp e;
+SELECT nvl2(comm, comm*1.1, 0) FROM emp e;			--NVL2(해당열, 정상값, NULL이면 대체값)
+
+-- DECODE 함수 : 조건에 따라서 값을 선택
+SELECT EMPNO, ENAME, JOB, SAL,
+       DECODE ( JOB,					-- 해당열
+                'MANAGER', SAL * 1.1,		-- 'MANAGER'가 적용되는 값
+                'SALESMAN', SAL * 1.05,		-- 'SALESMAN' 적용되는 값
+                'ANALYST', SAL,
+                SAL * 1.03) AS UPSAL			-- 그외 나머지 직무
+FROM EMP;
+
+SELECT EMPNO, ENAME, JOB, SAL,
+       CASE JOB
+           WHEN 'MANAGER' THEN sal* 1.1
+           WHEN 'SALESMAN' THEN sal* 1.5
+           WHEN 'ANALYST' THEN sal
+           ELSE SAL* 1.03
+           END AS upsal
+FROM emp e;
+
+-- 행 제한하기
+SELECT * FROM emp e;
+SELECT rownum FROM emp e;
+SELECT * FROM (SELECT e.*, DBMS_RANDOM.RANDOM FROM EMP e ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM < 6;
+SELECT * FROM emp e WHERE rownum <6;
+SELECT * FROM emp e WHERE
+
+-- 다중함수 (집계함수) : SUM, MIN, MAX, COUNT, AVG
+SELECT * FROM emp e;
+SELECT COUNT(ename)  FROM emp e;
+SELECT count(comm) FROM emp e;				-- NULL은 제외
+
+--부서번호 30의 직원수
+SELECT count(ename) FROM emp e WHERE DEPTNO=30;
+
 /* 다중함수 (집계함수) : SUM, MIN, MAX, COUNT, AVG */
 SELECT COUNT(ENAME)
 FROM EMP;
@@ -26,7 +67,7 @@ SELECT MAX(SAL), MIN(SAL)
 FROM EMP
 WHERE DEPTNO = 10;
 -- 20번 부서에서 신입과 최고참의 입사일 조회
-SELECT MAX(HIRERATE), MIN(HIRERATE)
+SELECT MAX(hiredate), MIN(hiredate)
 FROM EMP
 WHERE DEPTNO = 20;
 
@@ -122,15 +163,18 @@ FROM EMP;
 SELECT EMPNO
 FROM EMP;
 
-SELECT e.EMPNO, e.ENAME, e.JOB, e.MGR, e.HIRERATE, e.SAL, e.COMM,
+SELECT e.EMPNO, e.ENAME, e.JOB, e.MGR, e.hiredate, e.SAL, e.COMM,
        DEPTNO, d.DNAME, d.LOC
 FROM EMP e NATURAL JOIN DEPT d
 ORDER BY DEPTNO, e.EMPNO;
+--order by deptno, e.empno;
 
+-- JOIN ON
 SELECT *
 FROM EMP e JOIN DEPT d ON (e.DEPTNO = d.DEPTNO)
 WHERE SAL >= 3000;
 
+--OUTER JOIN
 SELECT e.EMPNO, e.ENAME, e.MGR,
        e2.EMPNO AS MGR_DMPNO,
        e2.ENAME AS MGR_ENAME
@@ -153,6 +197,7 @@ FROM EMP e FULL JOIN EMP e2 ON(e.MGR = e2.EMPNO);
 SELECT ROWNUM, EMP.*
 FROM EMP;
 
+-- 서브쿼리
 SELECT *
 FROM (SELECT ROWNUM, EMP.* FROM EMP)
 WHERE ROWNUM BETWEEN 1 AND 5;

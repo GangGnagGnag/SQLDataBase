@@ -58,11 +58,11 @@ SELECT LENGTH ('오라클'), LENGTHB ('오라클') FROM DUAL;		-- LENGTH : 문�
 
 /* 문자열 일부를 추출 substr 함수 */
 SELECT JOB, SUBSTR(JOB, 1, 2), SUBSTR(JOB, 3, 2), SUBSTR(JOB, 5) 
-FROM EMP
+FROM EMP;
 
 /* substr 함수를 사용해서 모든 사원의 이름을 3번째 부터 출력 */
-SELECT ENAME , SUBSTR(ENAME, 3) 
-FROM EMP
+SELECT ENAME, SUBSTR(ENAME, 3)
+FROM EMP;
 
 /* 특정 문자 위치를 찾는 INSTR 함수 */
 SELECT INSTR('HELLO, ORACLE', 'L') AS INSTR1,		-- 전체에서 찾기
@@ -78,7 +78,7 @@ WHERE INSTR(ENAME, 'S') > 0;
 /*특정 열에서 찾고자하는문자열을 포함하는 모든 행을 반환 하기 위해서 0보다 크다고 해야함*/
 SELECT *
 FROM EMP 
-WHERE ENAME LIKE '%S%'
+WHERE ENAME LIKE '%S%';
 
 /*문자변환 REPLACE 함수*/
 --	REPLACE(문자열, 찾는 문자 (필수), 대체문자(선택))

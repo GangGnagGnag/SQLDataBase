@@ -134,15 +134,15 @@ COMMIT;
 SELECT * FROM emp;
 
 CREATE TABLE DEPT (
-	DEPTNO NUMBER (2) , 
-	DNAME VARCHAR2 (4) ,
-	LOC VARCHAR2 (13)
+	DEPTNO NUMBER (2) ,     -- 부서번호
+	DNAME VARCHAR2 (4) ,    -- 부서명
+	LOC VARCHAR2 (13)       -- 부서위치
 ) ;
 SELECT * FROM dept;
 
 INSERT INTO dept VALUES (10, 'accounting', 'new york')
 
-ALTER TABLE	DEPT MODIFY	dname varchar2(14);	
+ALTER TABLE	DEPT MODIFY	dname varchar2(14);
 
 
 INSERT INTO DEPT VALUES (20, 'RESEARCH', 'DALLAS');

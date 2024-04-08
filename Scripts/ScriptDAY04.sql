@@ -47,7 +47,7 @@ SET loc = 'BUSAN'
 WHERE deptno = 40;
 
 DELETE FROM dept_tcl
-WHERE dname = 'RESEARCH'
+WHERE dname = 'RESEARCH';
 
 ROLLBACK; -- 트랙잭션 취소
 COMMIT;	  -- 트랜잭션 반영
@@ -94,7 +94,7 @@ START WITH 10								-- 시작 값
 MAXVALUE 90									-- 최댓 값
 MINVALUE 0									-- 최솟 값
 NOCYCLE										-- 최대값이면 정지, 순환금지 
-CACHE 2;									-- 
+CACHE 2;
 
 SELECT *
 FROM USER_SEQUENCES;
