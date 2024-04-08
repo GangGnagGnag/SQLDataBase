@@ -102,19 +102,24 @@ CREATE TABLE TBL_CHK (
 
 -- 1. EMP 테이블에서 사원번호가 7521인 사원의 직업과 같고, 사원번고 7934인 사원의 급여보다 많은 사원의 사번, 이름, 직업 ,급여출력
 SELECT EMPNO, ENAME, JOB, SAL
-    FROM EMP
-WHERE JOB = (SELECT JOB FROM EMP WHERE EMPNO = 7521 ) -- 서브쿼리
-    AND SAL > (SELECT SAL FROM EMP WHERE EMPNO = 7934); -- ()안에 앞에 비교해해야하는 값이랑 같은지 확인하기 위함
+FROM EMP
+WHERE JOB = (SELECT JOB FROM EMP WHERE EMPNO = 7521) -- 서브쿼리
+  AND SAL > (SELECT SAL FROM EMP WHERE EMPNO = 7934); -- ()안에 앞에 비교해해야하는 값이랑 같은지 확인하기 위함
+
 
 -- 2. 직업별(GROUP BY)로 최소 급여를 받는 사원의 정보를 사원번호, 이름 ,업무, 부서명으로 출력 (직업별 내림차순)
 SELECT e.EMPNO, e.ENAME, e.JOB, d.DNAME --테이블이 다른경우에 JOIN 사용
-    FROM EMP e JOIN DEPT d ON e.DEPTNO = d.DEPTNO               -- EMP, DEPT 에대한 약칭
-    WHERE e.SAL in (SELECT MIN(SAL) FROM EMP GROUP BY JOB )  -- 서브쿼리 절에는 min 셀 다중행이 출력 ( = 이랑 in 이랑 차이가 있으므로 확인)
-    order by job desc;
+FROM EMP e
+         JOIN DEPT d ON e.DEPTNO = d.DEPTNO -- EMP, DEPT 에대한 약칭
+WHERE e.SAL IN (SELECT MIN(SAL) FROM EMP GROUP BY JOB) -- 서브쿼리 절에는 min 셀 다중행이 출력 ( = 이랑 in 이랑 차이가 있으므로 확인)
+ORDER BY job DESC;
+
 
 -- 3. 각 사원별 커미션이 0 또는 NULL이고 부서 위치가 'GO'로 끝나는 사원의 정보를 사원번호, 사원이름, 커미션, 부서번호, 부서명, 부서위치를 출력하시오. (보너스가 NULL이면 0으로 출력)
-SELECT e.EMPNO, e.ENAME, NVL(e.COMM, 0), d.DEPTNO, d.DNAME, d.LOC   --  NVL(e.COMM, 0) 함수 COMM이 NULL 일때 0 으로 바꿔준다.
-    FROM EMP e JOIN DEPT d ON e.DEPTNO = d.DEPTNO
-WHERE COMM = 0 OR COMM IS NULL AND d.LOC LIKE '%GO'        --NULL을 쓸때는 IS 를 사용
+SELECT e.EMPNO, e.ENAME, NVL(e.COMM, 0), d.DEPTNO, d.DNAME, d.LOC --  NVL(e.COMM, 0) 함수 COMM이 NULL 일때 0 으로 바꿔준다.
+FROM EMP e
+         left outer JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+WHERE COMM = 0
+   OR COMM IS NULL AND d.LOC LIKE '%GO';--NULL을 쓸때는 IS 를 사용
 
 

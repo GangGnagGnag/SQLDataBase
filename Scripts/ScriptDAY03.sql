@@ -174,21 +174,21 @@ SELECT *
 FROM EMP e JOIN DEPT d ON (e.DEPTNO = d.DEPTNO)
 WHERE SAL >= 3000;
 
---OUTER JOIN
+--OUTER JOIN (left, right, full 3가지가 있음)
 SELECT e.EMPNO, e.ENAME, e.MGR,
        e2.EMPNO AS MGR_DMPNO,
        e2.ENAME AS MGR_ENAME
-FROM EMP e LEFT JOIN EMP e2 ON(e.MGR = e2.EMPNO);            -- 왼쪽 외부 조인 MGR
+FROM EMP e LEFT JOIN EMP e2 ON(e.MGR = e2.EMPNO);            -- 왼쪽 외부 조인
 
 SELECT e.EMPNO, e.ENAME, e.MGR,
        e2.EMPNO AS MGR_DMPNO,
        e2.ENAME AS MGR_ENAME
-FROM EMP e RIGHT JOIN EMP e2 ON(e.MGR = e2.EMPNO);
+FROM EMP e RIGHT JOIN EMP e2 ON(e.MGR = e2.EMPNO);           -- 오른쪽 외부 조인
 
 SELECT e.EMPNO, e.ENAME, e.MGR,
        e2.EMPNO AS MGR_DMPNO,
        e2.ENAME AS MGR_ENAME
-FROM EMP e FULL JOIN EMP e2 ON(e.MGR = e2.EMPNO);
+FROM EMP e FULL JOIN EMP e2 ON(e.MGR = e2.EMPNO);             -- 전체 외부 조인
 
 /* 서브쿼리 : SQL 쿼리 안에 포함된 또 다른 쿼리를 말함. 즉, 하나의 SQL 문장 안에서 또 다른 SQL 문장이 사용되는 것
    쿼리를 사용하여 데이터베이스에서 원하는 정보를 검색하거나 삽입, 갱신, 삭제하는 등의 작업을 수행할 수 있다.
