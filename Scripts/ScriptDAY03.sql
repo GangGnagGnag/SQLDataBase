@@ -29,7 +29,6 @@ SELECT * FROM emp e;
 SELECT rownum FROM emp e;
 SELECT * FROM (SELECT e.*, DBMS_RANDOM.RANDOM FROM EMP e ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM < 6;
 SELECT * FROM emp e WHERE rownum <6;
-SELECT * FROM emp e WHERE
 
 -- 다중함수 (집계함수) : SUM, MIN, MAX, COUNT, AVG
 SELECT * FROM emp e;
@@ -244,7 +243,7 @@ WHERE COMM > (SELECT COMM FROM EMP WHERE ENAME = 'ALLEN');
 -- SELECT DEPTNO, count(*) AS 인원수 FROM EMP GROUP BY DEPTNO ;
 
 --1. EMP 테이블에서 부서 인원이 4명보다 많은 부서의 부서번호, 인원수, 급여의 합을 조회하라
-SELECT DEPTNO AS 부서번호, COUNT(*) AS 인원수, SUM(SAL) AS 총급여
+SELECT DEPTNO AS 부서번호, COUNT(*) AS 인원수, SUM(SAL) AS 총급여 -- COUNT() 집계함수
 FROM EMP e
 GROUP BY DEPTNO
 HAVING COUNT(*) > 4;

@@ -123,3 +123,25 @@ WHERE COMM = 0
    OR COMM IS NULL AND d.LOC LIKE '%GO';--NULL을 쓸때는 IS 를 사용
 
 
+/* emp 테이블에서 입사일 순으로 사원번호, 이름, 업무, 급여, 입사일자, 부서번호 조회 */
+SELECT EMPNO, ENAME, JOB, SAL, HIREDATE, DEPTNO
+FROM EMP
+ORDER BY HIREDATE;
+
+-- emp 테이블에서 부서번호로 정렬한 후 급여가 많은 순으로 사원번호, 성명, 업무, 부서번호, 급여조회
+SELECT EMPNO, ENAME, JOB, DEPTNO, SAL
+FROM EMP
+ORDER BY DEPTNO, SAL DESC ;
+
+-- emp 테이블에서 모든 SALESMAN의 급여 평균, 최고액, 최저액, 합계를 조회하시오
+SELECT AVG(SAL), MAX(SAL), MIN(SAL), SUM(SAL)
+FROM EMP
+WHERE JOB = 'SALESMAN';
+
+SELECT *
+FROM EMP;
+-- emp 테이블에서 각 부서별로 인원수, 급여의 평균, 최저 급여, 최고 급여, 급여의 합을 구하여 급여의 합이 많은 순으로 출력하여라
+SELECT COUNT(DEPTNO) AS "부서별 인원수", AVG(SAL) AS 급여평균, MIN(SAL) AS 최저급여, MAX(SAL) AS 최고급여, SUM(SAL) AS 급여합계
+FROM EMP
+GROUP BY DEPTNO
+ORDER BY 급여합계 DESC ; -- 약칭을 써놔서 약칭으로도 사용가능
