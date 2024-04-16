@@ -13,60 +13,41 @@ FROM MEMBER;
 
 COMMIT;
 
-
-UPDATE MEMBER
-SET MEMBERCOUNT = MEMBERCOUNT + 1
-WHERE MEMBERID = '아이디' ;
-
-DELETE FROM MEMBER
-WHERE MEMBERID = '사용자가 입력한 아이디'
-  AND MEMBERPW = '사용자가 입력한 비밀번호';
-
-UPDATE MEMBER
-SET MEMBERCOUNT = MEMBERCOUNT - 1
-WHERE MEMBERID = '아이디' ;
-
 ---------------------------------------------------------
-
-
-
-
----------------------------------------------------------
-CREATE TABLE MANAGER (
-    MANAGER_ID  VARCHAR2(100),
-    MANAGER_PW  NUMBER
-);
-
-SELECT *
-FROM MANAGER;
-
-COMMIT;
 
 CREATE TABLE PT (
     MEMBERID VARCHAR2(100),
     EXERCISE VARCHAR2(100),
+    DATEDAY  VARCHAR2(100),
     KG       NUMBER,
     SETTING  NUMBER
 );
+
 SELECT MEMBERID AS 아이디,
+       DATEDAY  AS 날짜,
        EXERCISE AS 운동,
        KG       AS 무게,
        SETTING  AS 세트
 FROM PT;
 
-
-SELECT *
-FROM MEMBER
-WHERE MEMBERNAME = '한국진';
-
 COMMIT;
 
-SELECT M.MEMBERNAME AS 회원이름,
-       M.MEMBERID AS 아이디,
-       M.MEMBERPW AS 비밀번호,
-       M.MEMBERCOUNT AS 등록횟수,
-       PT.EXERCISE AS 운동,
-       PT.KG AS 무게,
-       PT.SETTING AS 세트
-FROM MEMBER M
-         JOIN PT ON M.MEMBERID = PT.MEMBERID;
+-------------------------------------------------
+
+SELECT DISTINCT
+    M.MEMBERNAME AS 회원이름,
+    M.MEMBERID AS 아이디,
+    M.MEMBERPW AS 비밀번호,
+    M.MEMBERCOUNT AS 등록횟수,
+    PT.DATEDAY AS 날짜,
+    PT.EXERCISE AS 운동,
+    PT.KG AS 무게,
+    PT.SETTING AS 세트
+FROM
+    MEMBER M
+        JOIN
+    PT ON M.MEMBERID = PT.MEMBERID
+ORDER BY
+    PT.DATEDAY ASC;
+
+COMMIT;
