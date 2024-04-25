@@ -13,9 +13,6 @@ FROM MEMBER;
 
 COMMIT;
 
-DELETE FROM MEMBER
-WHERE MEMBERID = '010-9999-6666';
-
 ---------------------------------------------------------
 
 CREATE TABLE PT (
